@@ -5,6 +5,9 @@ import Data.HashSet as HashSet
 readInt :: String -> Int
 readInt = read
 
+input :: [Int]
+input = Prelude.map readInt . words $ readFile "inputDay1.txt"
+
 findSum :: IO ()
 findSum = do
             contents <- readFile "inputDay1.txt"
