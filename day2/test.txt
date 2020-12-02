@@ -1,13 +1,3 @@
-13-14 f: ffffffffnfffvv
-10-12 w: kwtzpnzspwwwdz
-2-3 n: nnjn
-2-3 h: hhhh
-2-11 c: crccccccccsccc
-1-6 b: lcpcbcr
-16-20 q: qsqqqqqqqjqqqvqqqqqh
-4-5 m: mmfmm
-10-13 h: hhhhhhchhkhhphh
-10-14 x: xxvxxxxxxvxxxwx
-2-7 v: tvvgvrvvv
-8-11 j: jjjjrjwljjzjkmc
-2-5 t: xtpftb
+1-3 a: abcde
+1-3 b: cdefg
+2-9 c: ccccccccc
