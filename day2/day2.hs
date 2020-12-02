@@ -10,6 +10,9 @@ main = do
 readInt :: String -> Int
 readInt = read
 
+strToChar :: String -> Char
+strToChar (x : []) = x
+
 parseInput :: [String] -> [[String]]
 parseInput [] = []
 parseInput (s : ss) = [splitOn " " s2] ++ parseInput ss
@@ -37,7 +40,7 @@ g l = n < length s && m < length s && xor (s !! n == c) (s !! m == c)
   where
     n = readInt (head l) - 1
     m = readInt (l !! 1) - 1
-    c = head (l !! 2)
+    c = strToChar (l !! 2)
     s = l !! 3
 
 xor :: Bool -> Bool -> Bool
