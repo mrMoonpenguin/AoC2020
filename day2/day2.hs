@@ -14,7 +14,7 @@ parseInput :: [String] -> [[String]]
 parseInput [] = []
 parseInput (s : ss) = [splitOn " " s2] ++ parseInput ss
   where
-    s1 = [x | x <- s, x /= ':']
+    s1 = filter (/= ':') s
     s2 = replace "-" " " s1
 
 check :: [[String]] -> Int
@@ -42,6 +42,3 @@ g l = n < length s && m < length s && xor (s !! n == c) (s !! m == c)
 
 xor :: Bool -> Bool -> Bool
 xor a b = (a && (not b)) || ((not a) && b)
-
--- check :: [[String]] -> Int
--- check lst = length $ filter f lst
