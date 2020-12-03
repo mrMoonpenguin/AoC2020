@@ -4,7 +4,7 @@
 --   do
 --     contents <- readFile "inputDay3.txt"
 --     let input = lines contents
---     print $ countTrees input 0 0 3 1
+--     print $ countTrees input 0 3 1
 
 -- part 2
 main :: IO ()
@@ -12,15 +12,11 @@ main =
   do
     contents <- readFile "inputDay3.txt"
     let input = lines contents
-    print $ countTrees input 0 0 1 1 * countTrees input 0 0 3 1 * countTrees input 0 0 5 1 * countTrees input 0 0 7 1 * countTrees input 0 0 1 2
+    print $ countTrees input 0 1 1 * countTrees input 0 3 1 * countTrees input 0 5 1 * countTrees input 0 7 1 * countTrees input 0 1 2
 
--- general solution
-countTrees :: [String] -> Int -> Int -> Int -> Int -> Int
-countTrees lst x y dx dy
-  | y >= l = 0
-  | otherwise = n + countTrees lst x' y' dx dy
+countTrees :: [String] -> Int -> Int -> Int -> Int
+countTrees [] _ _ _ = 0
+countTrees lst@(s : ss) x dx dy = n + countTrees (drop dy lst) x' dx dy
   where
-    l = length lst
-    x' = mod (x + dx) (length (head lst))
-    y' = y + dy
-    n = if (lst !! y) !! x == '#' then 1 else 0
+    n = if s !! x == '#' then 1 else 0
+    x' = mod (x + dx) (length s)
