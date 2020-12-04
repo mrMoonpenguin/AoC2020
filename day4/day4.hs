@@ -61,8 +61,9 @@ checkHgt hgt
   | unit == "in" = hgt' >= 59 && hgt' <= 76
   | otherwise = False
   where
-    unit = reverse $ take 2 (reverse hgt)
-    hgt' = readInt $ reverse $ drop 2 (reverse hgt)
+    unit = drop (len - 2) hgt
+    hgt' = readInt $ take (len - 2) hgt
+    len = length hgt
 
 checkHcl :: String -> Bool
 checkHcl s = length s == 7 && matchRegex (mkRegex "#([0-9a-f]{6})") s /= Nothing
