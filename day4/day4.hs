@@ -27,36 +27,16 @@ checkPass' s =
 
 checkPass2 :: [String] -> Bool
 checkPass2 [] = True
-checkPass2 (s : ss)
-  | h == "byr" = checkByr t && checkPass2 ss
-  | h == "iyr" = checkIyr t && checkPass2 ss
-  | h == "eyr" = checkEyr t && checkPass2 ss
-  | h == "hgt" = checkHgt t && checkPass2 ss
-  | h == "hcl" = checkHcl t && checkPass2 ss
-  | h == "ecl" = checkEcl t && checkPass2 ss
-  | h == "pid" = checkPid t && checkPass2 ss
-  | h == "cid" = checkPass2 ss
+checkPass2 (s : ss) = checkField h t && checkPass2 ss
   where
     h = take 3 s
     t = drop 4 s
 
-checkByr :: String -> Bool
-checkByr byr = byr' >= 1920 && byr' <= 2002
-  where
-    byr' = readInt byr
-
-checkIyr :: String -> Bool
-checkIyr iyr = iyr' >= 2010 && iyr' <= 2020
-  where
-    iyr' = readInt iyr
-
-checkEyr :: String -> Bool
-checkEyr eyr = eyr' >= 2020 && eyr' <= 2030
-  where
-    eyr' = readInt eyr
-
-checkHgt :: String -> Bool
-checkHgt hgt
+checkField :: String -> String -> Bool
+checkField "byr" byr = readInt byr >= 1920 && readInt byr <= 2002
+checkField "iyr" iyr = readInt iyr >= 2010 && readInt iyr <= 2020
+checkField "eyr" eyr = readInt eyr >= 2020 && readInt eyr <= 2030
+checkField "hgt" hgt
   | unit == "cm" = hgt' >= 150 && hgt' <= 193
   | unit == "in" = hgt' >= 59 && hgt' <= 76
   | otherwise = False
@@ -64,12 +44,7 @@ checkHgt hgt
     unit = drop (len - 2) hgt
     hgt' = readInt $ take (len - 2) hgt
     len = length hgt
-
-checkHcl :: String -> Bool
-checkHcl s = length s == 7 && matchRegex (mkRegex "#([0-9a-f]{6})") s /= Nothing
-
-checkEcl :: String -> Bool
-checkEcl s = s == "amb" || s == "blu" || s == "brn" || s == "gry" || s == "grn" || s == "hzl" || s == "oth"
-
-checkPid :: String -> Bool
-checkPid s = length s == 9 && matchRegex (mkRegex "[0-9]{9}") s /= Nothing
+checkField "hcl" hcl = length hcl == 7 && matchRegex (mkRegex "#([0-9a-f]{6})") hcl /= Nothing
+checkField "ecl" ecl = ecl == "amb" || ecl == "blu" || ecl == "brn" || ecl == "gry" || ecl == "grn" || ecl == "hzl" || ecl == "oth"
+checkField "pid" pid = length pid == 9 && matchRegex (mkRegex "[0-9]{9}") pid /= Nothing
+checkField "cid" _ = True
