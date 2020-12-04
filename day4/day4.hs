@@ -26,11 +26,7 @@ checkPass' s =
     && elem "pid" s
 
 checkPass2 :: [String] -> Bool
-checkPass2 [] = True
-checkPass2 (s : ss) = checkField h t && checkPass2 ss
-  where
-    h = take 3 s
-    t = drop 4 s
+checkPass2 = foldr (\x y -> checkField (take 3 x) (drop 4 x) && y) True
 
 checkField :: String -> String -> Bool
 checkField "byr" byr = readInt byr >= 1920 && readInt byr <= 2002
