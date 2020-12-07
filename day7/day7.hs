@@ -10,11 +10,19 @@ data Rule = MkRule {bag :: Bag, bagContent :: [(Int, Bag)]} deriving (Show)
 
 type Rules = [Rule]
 
+-- -- part 1
+-- main :: IO ()
+-- main = do
+--   contents <- readFile "inputDay7.txt"
+--   let rules = parseInput . lines $ contents
+--   print . length . filter (checkGold rules) $ rules
+
+-- part 2
 main :: IO ()
 main = do
   contents <- readFile "inputDay7.txt"
   let rules = parseInput . lines $ contents
-  print . length . filter (checkGold rules) $ rules
+  print . ((-1) +) $ countBags (fromJust $ findBag rules "shinygold") rules
 
 readInt :: String -> Int
 readInt = read
@@ -44,3 +52,6 @@ checkGold :: Rules -> Rule -> Bool
 checkGold rules r
   | contains (bagContent r) "shinygold" = True
   | otherwise = foldr (\x y -> (checkGold rules . fromJust . findBag rules . snd $ x) || y) False (bagContent r)
+
+countBags :: Rule -> Rules -> Int
+countBags r rules = foldr (\x y -> fst x * countBags (fromJust $ findBag rules (snd x)) rules + y) 1 (bagContent r)
