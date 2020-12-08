@@ -10,19 +10,19 @@ data Rule = MkRule {bag :: Bag, bagContent :: [(Int, Bag)]} deriving (Show)
 
 type Rules = [Rule]
 
--- -- part 1
--- main :: IO ()
--- main = do
---   contents <- readFile "inputDay7.txt"
---   let rules = parseInput . lines $ contents
---   print . length . filter (checkGold rules) $ rules
-
--- part 2
+-- part 1
 main :: IO ()
 main = do
   contents <- readFile "inputDay7.txt"
   let rules = parseInput . lines $ contents
-  print . ((-1) +) $ countBags (fromJust $ findBag rules "shinygold") rules
+  print . length . filter (checkGold rules) $ rules
+
+-- -- part 2
+-- main :: IO ()
+-- main = do
+--   contents <- readFile "inputDay7.txt"
+--   let rules = parseInput . lines $ contents
+--   print . ((-1) +) $ countBags (fromJust $ findBag rules "shinygold") rules
 
 readInt :: String -> Int
 readInt = read
