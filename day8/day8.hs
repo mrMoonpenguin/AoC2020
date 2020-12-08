@@ -44,7 +44,7 @@ replaceBadLine :: Int -> [Operation] -> Int
 replaceBadLine pos ops = case instr of
   "acc" -> replaceBadLine (pos + 1) ops
   "jmp" ->
-    fromMaybe (replaceBadLine (pos + 1) ops) res1
+    fromMaybe (replaceBadLine (pos + arg op) ops) res1
     where
       res1 = run' 0 0 empty (take pos ops ++ [Op "nop" (arg op)] ++ drop (pos + 1) ops)
   "nop" ->
