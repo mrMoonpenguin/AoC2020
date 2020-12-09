@@ -1,11 +1,10 @@
-import Data.Maybe
-
 main :: IO ()
 main = do
   contents <- readFile "inputDay9.txt"
   let lst = map readInt . lines $ contents
   let outlier = findOutlier 0 lst
-  print $ findContiguousSet lst outlier
+  print outlier
+  print $ findContiguousSet lst outlier 0 0
 
 readInt :: String -> Int
 readInt = read
@@ -19,18 +18,10 @@ findOutlier pos lst
 twoSum :: [Int] -> Int -> Bool
 twoSum lst n = not . null $ [i + j | i <- lst, j <- lst, i /= j, i + j == n]
 
-findContiguousSet :: [Int] -> Int -> Int
-findContiguousSet (x : xs) n =
-  if isNothing res
-    then findContiguousSet xs n
-    else maximum (fromJust res) + minimum (fromJust res)
+findContiguousSet :: [Int] -> Int -> Int -> Int -> Int
+findContiguousSet lst n lo hi
+  | sum window == n = minimum window + maximum window
+  | sum window > n = findContiguousSet lst n (lo + 1) hi
+  | sum window < n = findContiguousSet lst n lo (hi + 1)
   where
-    res = findContiguousSet' xs n [x]
-
-findContiguousSet' :: [Int] -> Int -> [Int] -> Maybe [Int]
-findContiguousSet' (x : xs) n acc
-  | acc' == n = Just (x : acc)
-  | acc' < n = findContiguousSet' xs n (x : acc)
-  | acc' > n = Nothing
-  where
-    acc' = x + sum acc
+    window = drop lo (take hi lst)
