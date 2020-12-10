@@ -10,5 +10,6 @@ main = do
 readInt :: String -> Int
 readInt = read
 
+-- hardcoded the gap, oh well
 joltage :: [(Int, Int)] -> Int
 joltage lst = length (filter (\(x, y) -> x - y == 3) lst) * length (filter (\(x, y) -> x - y == 1) lst)
