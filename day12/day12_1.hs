@@ -9,17 +9,8 @@ main = do
   contents <- readFile "inputDay12.txt"
   print . move (0, 0) 0 . map mkAction . lines $ contents
 
-readInt :: String -> Int
-readInt = read
-
 readDouble :: String -> Double
 readDouble = read
-
-act :: Action -> Char
-act (a, _) = a
-
-val :: Action -> Double
-val (_, v) = v
 
 mkAction :: String -> (Char, Double)
 mkAction s = (head s, readDouble (tail s))
