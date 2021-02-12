@@ -6,7 +6,7 @@ data Operation = Op {fn :: String, arg :: Int} deriving (Show)
 
 main :: IO ()
 main = do
-  contents <- readFile "input"
+  contents <- readFile "inputDay8.txt"
   print . run 0 0 empty . map ((\x -> Op (x !! 0) (readInt $ x !! 1)) . words) . lines . replace "+" "" $ contents
   print . replaceBadLine 0 0 empty . map ((\x -> Op (x !! 0) (readInt $ x !! 1)) . words) . lines . replace "+" "" $ contents
 
